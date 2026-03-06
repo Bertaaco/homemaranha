@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spider-Man vs Puma</title>
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body { 
+    font-family: Arial, Helvetica, sans-serif; 
+    color: white; 
+    overflow-x: hidden; 
+    background-color: #181818; 
+}
+
+
+nav { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 15px 50px; 
+    background: #111; 
+    border-bottom: 3px solid #e62429; 
+    position: sticky; 
+    top: 0; 
+    z-index: 100; 
+}
+.nav-logo {
+    color: #ffd700;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+.nav-logo span { color: #888; margin-right: 5px; }
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+.nav-links a { 
+    color: #fff; 
+    text-decoration: none; 
+    font-weight: 900; 
+    font-style: italic;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    transition: .3s; 
+}
+.nav-links a:hover { color: #e62429; }
+
+
+.hero { 
+    height: 85vh; 
+    background: url("download (1).jpg") center/cover no-repeat; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    position: relative; 
+    overflow: hidden; 
+}
+.hero::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+
+.hero-content { 
+    position: relative; 
+    z-index: 2; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+.hero-badge {
+    background: #ffd700;
+    color: #000;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    padding: 6px 15px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    border: 2px solid #000;
+    box-shadow: 3px 3px 0px rgba(0,0,0,0.8);
+    transform: skewX(-10deg);
+    margin-bottom: 10px;
+}
+
+.title-spidey {
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 5.5rem;
+    color: #fff;
+    font-style: italic;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-shadow: 5px 5px 0px #000;
+    transform: skewX(-10deg);
+    line-height: 0.9;
+    margin: 0;
+}
+
+.title-vs {
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 3rem;
+    color: #ffd700;
+    font-style: italic;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-shadow: 4px 4px 0px #000;
+    transform: skewX(-10deg);
+    line-height: 0.8;
+    z-index: 3;
+}
+
+.title-puma {
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 5.5rem;
+    color: #cda434; 
+    font-style: italic;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-shadow: 5px 5px 0px #000;
+    transform: skewX(-10deg);
+    line-height: 0.9;
+    margin: 0;
+}
+
+.speech-bubble {
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    padding: 15px 30px;
+    border-radius: 8px;
+    border: 3px solid #000;
+    position: relative;
+    margin-top: 30px;
+    margin-bottom: 25px;
+    max-width: 400px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    box-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+}
+.speech-bubble::before, .speech-bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -18px;
+    left: 40px;
+    border-width: 18px 18px 0 0;
+    border-style: solid;
+}
+.speech-bubble::before {
+    bottom: -23px;
+    left: 37px;
+    border-width: 22px 22px 0 0;
+    border-color: #000 transparent transparent transparent;
+}
+.speech-bubble::after {
+    border-color: #fff transparent transparent transparent;
+}
+
+.btn-comic { 
+    background: #e62429; 
+    color: #fff; 
+    font-family: 'Arial Black', Arial, sans-serif;
+    text-transform: uppercase;
+    font-style: italic;
+    padding: 15px 35px; 
+    text-decoration: none; 
+    border: 3px solid #000; 
+    box-shadow: 5px 5px 0px #000; 
+    transition: 0.2s ease; 
+    display: inline-block; 
+}
+.btn-comic:hover { 
+    background: #cc0000; 
+    transform: translate(2px, 2px); 
+    box-shadow: 3px 3px 0px #000; 
+}
+
+/* === HISTÓRIA === */
+.section { max-width: 1100px; margin: auto; padding: 70px 20px; }
+
+.titulo-container { text-align: center; margin-bottom: 60px; } 
+
+.titulo-historia {
+    background-color: #e62429;
+    color: white;
+    display: inline-block;
+    padding: 10px 25px;
+    font-size: 2.8rem;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    text-transform: uppercase;
+    transform: skewX(-10deg);
+}
+
+.historia-timeline { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 40px; 
+}
+
+.comic-card { 
+    background: #fdfdfd; 
+    color: #111; 
+    width: 90%; 
+    max-width: 600px; 
+    padding: 35px 45px; 
+    border: 1px solid #000; 
+    box-shadow: 6px 6px 0px rgba(0,0,0,1); 
+    text-align: left; 
+    --tx: 0%; 
+}
+
+.comic-card:nth-child(odd) { --tx: -12%; }
+.comic-card:nth-child(even) { --tx: 12%; }
+
+.capitulo-tag { 
+    background-color: #1a5bce; 
+    color: white; 
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-weight: 900; 
+    font-style: italic; 
+    font-size: 0.85rem; 
+    padding: 5px 12px; 
+    display: inline-block; 
+    text-transform: uppercase; 
+    margin-bottom: 15px; 
+}
+
+.comic-card h3 { 
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: 1.8rem; 
+    font-style: italic; 
+    font-weight: 900; 
+    text-transform: uppercase; 
+    margin-bottom: 15px; 
+    color: #000; 
+}
+
+.comic-card p { 
+    font-size: 1.05rem; 
+    line-height: 1.6; 
+    color: #222; 
+}
+
+.pow-effect { 
+    text-align: center; 
+    font-size: 5rem; 
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-weight: 900; 
+    font-style: italic; 
+    color: #ffd700; 
+    text-transform: uppercase; 
+    margin-top: 60px; 
+    transform: skewX(-10deg) rotate(-5deg); 
+    text-shadow: 4px 4px 0px #000, 8px 8px 0px #e62429; 
+}
+
+
+.fighters { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+.card { width: 320px; background: rgba(17, 17, 17, 0.9); border-radius: 10px; overflow: hidden; border: 2px solid #333; transition: all .4s ease; cursor: pointer; position: relative; }
+.card:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 15px 30px rgba(255, 69, 0, 0.4); border-color: orange; }
+.card img { width: 100%; height: 350px; object-fit: cover; border-bottom: 2px solid #333; }
+.card h3 { text-align: center; padding: 15px; background: #222; text-transform: uppercase; color: #fff; font-style: italic; font-weight: 900; }
+.powers { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; padding: 20px; }
+.power { background: #333; padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; border: 1px solid #555; }
+
+.section-title-yellow { font-family: 'Arial Black', Arial, sans-serif; text-align: center; font-size: 2.5rem; color: #ffd700; margin-bottom: 40px; font-style: italic; text-transform: uppercase;}
+
+.ficha { 
+    max-width: 950px; 
+    margin: 80px auto; 
+    padding: 0 20px; 
+    text-align: center; 
+}
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 25px; 
+    margin-top: 40px; 
+}
+.item { 
+    background: #fdfdfd; 
+    color: #111;
+    padding: 25px 20px; 
+    border: 3px solid #000; 
+    box-shadow: 6px 6px 0px #e62429; 
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1rem;
+    transform: skewX(-4deg); 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.item:hover {
+    transform: skewX(-4deg) translate(-3px, -3px);
+    box-shadow: 9px 9px 0px #e62429;
+}
+.item strong { 
+    display: inline-block;
+    background: #ffd700; 
+    color: #000;
+    font-family: 'Arial Black', Arial, sans-serif; 
+    font-style: italic;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border: 2px solid #000;
+    margin-bottom: 12px;
+    font-size: 1rem;
+    transform: skewX(-5deg);
+    box-shadow: 3px 3px 0px #000; 
+}
+
+footer { text-align: center; padding: 40px; background: #000; border-top: 3px solid red; color: #828282; font-family: 'Arial Black', sans-serif; text-transform: uppercase; font-size: 0.9rem;}
+
+
+.fade-in-init { 
+    opacity: 0; 
+    transform: translate(var(--tx, 0), 40px); 
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; 
+}
+.visible { 
+    opacity: 1 !important; 
+    transform: translate(var(--tx, 0), 0) !important; 
+}
+
+.particles { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.particle { position: absolute; border-radius: 50%; opacity: 0.7; }
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    50% { opacity: 0.8; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+}
+
+.spark { position: absolute; width: 8px; height: 8px; background: #ffeb3b; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; animation: spark-anim 0.6s ease-out forwards; pointer-events: none; z-index: 10; }
+@keyframes spark-anim {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0); }
+}
+
+.card.fighting { animation: shake 0.4s infinite, glow 1.2s infinite alternate; border-color: #ff4500 !important; }
+@keyframes shake {
+    0%, 100% { transform: scale(1.05); }
+    25% { transform: translate(-4px, 2px) scale(1.05); }
+    50% { transform: translate(4px, -2px) scale(1.05); }
+    75% { transform: translate(-2px, 4px) scale(1.05); }
+}
+@keyframes glow {
+    from { box-shadow: 0 0 20px rgba(255, 69, 0, 0.6); }
+    to { box-shadow: 0 0 60px rgba(255, 0, 0, 1); }
+}
+
+.power-level { position: fixed; bottom: 20px; right: 20px; background: rgba(0,0,0,0.8); padding: 10px 20px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; color: #ffd700; z-index: 999; border: 2px solid #ffd700; pointer-events: none; transition: 0.3s; }
+.power-level.max-power { color: #ff4500; border-color: #ff4500; animation: pulse 0.8s infinite; text-shadow: 0 0 10px red; }
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+
+@media (max-width: 768px) {
+    nav { flex-direction: column; gap: 15px; padding: 15px; }
+    .title-spidey, .title-puma { font-size: 3.5rem; }
+    .title-vs { font-size: 2rem; }
+    
+    .comic-card { --tx: 0% !important; padding: 25px; }
+    .pow-effect { font-size: 4rem; }
+    .item { transform: skewX(0deg); }
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-logo"><span>🕷️</span> HOMEM-ARANHA VS PUMA</div>
+    <div class="nav-links">
+        <a href="#historia">História</a>
+        <a href="#personagens">Personagens</a>
+        <a href="#fatos">Fatos</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">MARVEL COMICS APRESENTA</div>
+        
+        <h2 class="title-spidey">HOMEM-ARANHA</h2>
+        <div class="title-vs">VS</div>
+        <h2 class="title-puma">PUMA</h2>
+        
+        <div class="speech-bubble">
+            "Com grandes poderes vêm grandes responsabilidades... e grandes inimigos!"
+        </div>
+        
+        <a href="#historia" class="btn-comic">LER A HISTÓRIA &rarr;</a>
+    </div>
+</section>
+
+<section id="historia" class="section">
+    <div class="titulo-container">
+        <h2 class="titulo-historia">A História</h2>
+    </div>
+    
+    <div class="historia-timeline">
+        <div class="comic-card">
+            <span class="capitulo-tag">Capítulo 1</span>
+            <h3>O Caçador</h3>
+            <p>Thomas Fireheart, o poderoso empresário, recebe uma missão ancestral de sua tribo: eliminar o Homem-Aranha. Como Puma, ele possui sentidos aguçados, garras devastadoras e uma agilidade sobre-humana que rivaliza com a do próprio aracnídeo.</p>
+        </div>
+        
+        <div class="comic-card">
+            <span class="capitulo-tag">Capítulo 2</span>
+            <h3>O Confronto</h3>
+            <p>Nas ruas de Nova York, o Sentido Aranha dispara como nunca antes. Puma é diferente dos vilões comuns — ele é calculista, rápido e mortalmente preciso. A batalha pelos telhados da cidade testa os limites de Peter Parker.</p>
+        </div>
+
+        <div class="comic-card">
+            <span class="capitulo-tag">Capítulo 3</span>
+            <h3>Honra e Redenção</h3>
+            <p>Quando uma ameaça maior surge, Puma e Homem-Aranha precisam deixar suas diferenças de lado. Thomas descobre que o verdadeiro inimigo não é o herói mascarado, mas sim aqueles que manipularam sua missão desde o início.</p>
+        </div>
+
+        <div class="comic-card">
+            <span class="capitulo-tag">Capítulo 4</span>
+            <h3>O Desfecho</h3>
+            <p>Em uma reviravolta épica, Puma e Homem-Aranha unem forças. A batalha final revela que honra e responsabilidade são valores que transcendem lados opostos. Um novo respeito nasce entre o predador e a presa.</p>
+        </div>
+    </div>
+
+    <div class="pow-effect fade-in-init">POW!</div>
+</section>
+
+<section id="personagens" class="section">
+    <h2 class="section-title-yellow">Personagens</h2>
+    <div class="fighters">
+        <div class="card">
+            <h3>Homem-Aranha</h3>
+            <img src="download.jpg" alt="Homem-Aranha">
+            <div class="powers">
+                <span class="power">Sentido Aranha</span>
+                <span class="power">Força</span>
+                <span class="power">Agilidade</span>
+                <span class="power">Teias</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Puma</h3>
+            <img src="images.jpg" alt="Puma">
+            <div class="powers">
+                <span class="power">Garras</span>
+                <span class="power">Velocidade</span>
+                <span class="power">Sentidos</span>
+                <span class="power">Transformação</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="fatos" class="ficha">
+    <h2 class="section-title-yellow">Ficha Técnica</h2>
+    <div class="grid fade-in-init">
+        <div class="item">
+            <strong>Primeira Aparição</strong><br>
+            Amazing Spider-Man #256
+        </div>
+        <div class="item">
+            <strong>Criadores</strong><br>
+            Tom DeFalco & Ron Frenz
+        </div>
+        <div class="item">
+            <strong>Editora</strong><br>
+            Marvel Comics
+        </div>
+        <div class="item">
+            <strong>Personagem</strong><br>
+            Thomas Fireheart
+        </div>
+    </div>
+</section>
+
+<footer>
+    Marvel Cosmic &copy; 2026
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener("click", function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        });
+    });
+
+    // Alterado para incluir a .grid da ficha nas animações
+    const fadeElements = document.querySelectorAll(".comic-card, .card, .grid, .pow-effect");
+    const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+
+    const appearObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add("visible");
+                }, index * 150); 
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    fadeElements.forEach(el => {
+        el.classList.add("fade-in-init");
+        appearObserver.observe(el);
+    });
+
+    const hero = document.querySelector(".hero");
+    if (hero) {
+        hero.addEventListener("mousemove", (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 30; 
+            const y = (e.clientY / window.innerHeight - 0.5) * 30;
+            hero.style.backgroundPosition = `calc(50% + ${x}px) calc(50% + ${y}px)`;
+        });
+    }
+
+    function createParticles() {
+        const particleContainer = document.createElement("div");
+        particleContainer.className = "particles";
+        hero.appendChild(particleContainer);
+
+        const colors = ["#ffffff", "#ffd700", "#ff4040", "#ffaa00"];
+        
+        for (let i = 0; i < 40; i++) {
+            const p = document.createElement("div");
+            p.className = "particle";
+            
+            const size = Math.random() * 5 + 2;
+            p.style.width = `${size}px`;
+            p.style.height = `${size}px`;
+            p.style.left = `${Math.random() * 100}%`;
+            p.style.top = `${Math.random() * 100}%`;
+            
+            const duration = Math.random() * 10 + 5;
+            p.style.animation = `float ${duration}s infinite linear`;
+            p.style.animationDelay = `-${Math.random() * 10}s`; 
+            p.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            particleContainer.appendChild(p);
+        }
+    }
+    if (hero) createParticles();
+
+    const cards = document.querySelectorAll(".card");
+
+    function createImpactParticles(element) {
+        for (let i = 0; i < 25; i++) {
+            const spark = document.createElement("div");
+            spark.className = "spark";
+            
+            const angle = Math.random() * 360 * (Math.PI / 180);
+            const dist = Math.random() * 100 + 50;
+            const tx = Math.cos(angle) * dist;
+            const ty = Math.sin(angle) * dist;
+            
+            spark.style.setProperty("--tx", `${tx}px`);
+            spark.style.setProperty("--ty", `${ty}px`);
+            
+            element.appendChild(spark);
+            setTimeout(() => spark.remove(), 600);
+        }
+    }
+
+    cards.forEach(card => {
+        card.addEventListener("click", function() {
+            if(this.classList.contains("fighting")) return;
+
+            cards.forEach(c => c.classList.remove("fighting"));
+            this.classList.add("fighting");
+            
+            createImpactParticles(this);
+            
+            setTimeout(() => this.classList.remove("fighting"), 2000);
+        });
+    });
+
+    const powerDisplay = document.createElement("div");
+    powerDisplay.className = "power-level";
+    powerDisplay.innerHTML = "Poder: <span>0</span>%";
+    document.body.appendChild(powerDisplay);
+
+    window.addEventListener("scroll", () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.body.scrollHeight - window.innerHeight;
+        const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        
+        const powerLevel = Math.min(Math.floor(scrollPercent), 100);
+        powerDisplay.querySelector("span").textContent = powerLevel;
+        
+        if (powerLevel > 85) {
+            powerDisplay.classList.add("max-power");
+        } else {
+            powerDisplay.classList.remove("max-power");
+        }
+    });
+});
+</script>
+
+</body>
+</html> 
